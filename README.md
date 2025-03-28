@@ -1,1 +1,1 @@
-# normalisation
+# GUI for normalistaion of databases
