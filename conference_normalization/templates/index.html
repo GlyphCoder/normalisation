@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Conference DB Normalizer</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    <div class="container animate__animated animate__fadeIn">
+        <h1>Database Normalization Tool</h1>
+        <p class="subtitle">DBMS assignment - 23BCE034 Bhavya Shah, 23BCE034 Aadit Pithava</p>
+        
+        <div class="case-study">
+            <h2>Case Study: Conference Paper Management System</h2>
+            <div class="case-content">
+                <p>The system manages papers submitted to an academic conference with:</p>
+                <ul>
+                    <li>Papers with unique IDs, titles, abstracts, and PDF content</li>
+                    <li>Authors with names, affiliations, and emails (ordered by contribution)</li>
+                    <li>Program Committee (PC) members who review papers</li>
+                    <li>Each paper reviewed by exactly 3 PC members</li>
+                    <li>Each PC member reviews ≤5 papers</li>
+                    <li>Review reports with comments, recommendations (accept/reject), and submission dates</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="input-section animate__animated animate__fadeInUp">
+            <h2>Input Your Schema</h2>
+            <div class="form-group">
+                <label>Attributes (comma separated):</label>
+                <textarea id="attributes">paper_id,title,abstract,pdf_path,author_names,author_emails,author_affiliations,pc_id,pc_name,pc_email,review_id,review_comments,review_decision,review_date</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Functional Dependencies:</label>
+                <div id="fds-container">
+                    <div class="fd-row">
+                        <input type="text" class="fd-left" value="paper_id">
+                        <span>→</span>
+                        <input type="text" class="fd-right" value="title,abstract,pdf_path">
+                        <button class="remove-fd">×</button>
+                    </div>
+                    <div class="fd-row">
+                        <input type="text" class="fd-left" value="paper_id,author_position">
+                        <span>→</span>
+                        <input type="text" class="fd-right" value="author_names,author_emails,author_affiliations">
+                        <button class="remove-fd">×</button>
+                    </div>
+                    <div class="fd-row">
+                        <input type="text" class="fd-left" value="pc_id">
+                        <span>→</span>
+                        <input type="text" class="fd-right" value="pc_name,pc_email">
+                        <button class="remove-fd">×</button>
+                    </div>
+                    <div class="fd-row">
+                        <input type="text" class="fd-left" value="review_id">
+                        <span>→</span>
+                        <input type="text" class="fd-right" value="paper_id,pc_id,review_comments,review_decision,review_date">
+                        <button class="remove-fd">×</button>
+                    </div>
+                </div>
+                <button id="add-fd">+ Add FD</button>
+            </div>
+            
+            <button id="normalize-btn" >Normalize Schema</button>
+        </div>
+        
+        <div class="results-section animate__animated animate__fadeIn">
+            <h2>Normalization Results</h2>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
